@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import router from "./Router";
 import { ThemeProvider } from "styled-components";
+import App from "./Root";
 import { theme } from "./theme";
-//import App from "./Root";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +10,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
+      <App />
     </ThemeProvider>
   </React.StrictMode>
 );
