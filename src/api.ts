@@ -25,7 +25,11 @@ export function fetchCoinHistory(coinId?: string) {
   //     `${BASE_URL}/coins/${coinId}/ohlcv/historical?start=${startDate}&end=${endDate}`
   //   ).then((response) => response.json());
 
-  return fetch(`${BASE_URL_OHLCV}/?coinId=${coinId}`).then((response) =>
+  return fetch(`${BASE_URL_OHLCV}/?coinId=btc-bitcoin`).then((response) =>
     response.json()
   );
+
+  // return fetch(`${BASE_URL_OHLCV}/?coinId=${coinId}`).then((response) =>
+  //   response.json()
+  // );
 }

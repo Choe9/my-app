@@ -85,6 +85,26 @@ const Tab = styled.span<{ isActive: boolean }>`
   }
 `;
 
+const Main = styled.span<{ isActive: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 0px;
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    display: block;
+  }
+`;
+
 interface IParams {
   coinId?: string;
 }
@@ -158,6 +178,7 @@ function Coin() {
   const { state } = useLocation() as LocationState;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
+  const mainMatch = useMatch("/");
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
     () => fetchCoinInfo(coinId)
@@ -221,6 +242,9 @@ function Coin() {
             <Route path="price" element={<Price />} />
             <Route path="chart" element={<Chart />} />
           </Routes> */}
+          <Main isActive={mainMatch !== null}>
+            <Link to="/">Main</Link>
+          </Main>
           <Tabs>
             <Tab isActive={chartMatch !== null}>
               <Link to="chart">Chart</Link>

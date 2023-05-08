@@ -19,10 +19,12 @@ interface ChartProps {
 }
 
 function Chart() {
-  const { coinId } = useOutletContext() as ChartProps;
+  // const { coinId } = useOutletContext() as ChartProps;
   const { isLoading, data } = useQuery<IHistorical[]>(
-    ["ohlcv", coinId],
-    () => fetchCoinHistory(coinId),
+    ["ohlcv", "btc-bitcoin"],
+    // ["ohlcv", coinId],
+    // () => fetchCoinHistory(coinId),
+    () => fetchCoinHistory("btc-bitcoin"),
     {
       refetchInterval: 10000,
     }
@@ -33,12 +35,21 @@ function Chart() {
         "Loading chart..."
       ) : (
         <ReactApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
-              name: "Price",
-              data: data?.map((price) => Number(price.close)) as number[],
-            },
+              data: data?.map((price) => {
+                return {
+                  x: new Date(price.time_close * 1000),
+                  y: [
+                    Number(price.open),
+                    Number(price.high),
+                    Number(price.low),
+                    Number(price.close),
+                  ],
+                };
+              }),
+            } as { data: { x: Date; y: number[] }[] },
           ]}
           options={{
             theme: {
@@ -50,13 +61,13 @@ function Chart() {
               toolbar: {
                 show: false,
               },
-              background: "transparent",
+              background: "rgba(0, 0, 0, 0.5)",
             },
-            grid: { show: false },
-            stroke: {
-              curve: "smooth",
-              width: 4,
-            },
+            // grid: { show: false },
+            // stroke: {
+            //   curve: "smooth",
+            //   width: 4,
+            // },
             yaxis: {
               show: false,
             },
@@ -64,19 +75,23 @@ function Chart() {
               axisBorder: { show: false },
               axisTicks: { show: false },
               labels: { show: false },
-              type: "datetime",
-              categories: data?.map((price) =>
-                new Date(price.time_close * 1000).toUTCString()
-              ),
             },
-            fill: {
-              type: "gradient",
-              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-            },
-            colors: ["#0fbcf9"],
-            tooltip: {
-              y: {
-                formatter: (value) => `$ ${value.toFixed(3)}`,
+            // fill: {
+            //   type: "gradient",
+            //   gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
+            // },
+            // colors: ["#0fbcf9"],
+            // tooltip: {
+            //   y: {
+            //     formatter: (value) => `$ ${value.toFixed(3)}`,
+            //   },
+            // },
+            plotOptions: {
+              candlestick: {
+                colors: {
+                  upward: "#DF7D46",
+                  downward: "#3C90EB",
+                },
               },
             },
           }}
