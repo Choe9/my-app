@@ -8,7 +8,7 @@ export const darkTheme: DefaultTheme = {
 };
 
 export const lightTheme: DefaultTheme = {
-  bgColor: "wgitesmoke",
+  bgColor: "whitesmoke",
   textColor: "black",
   accentColor: "#9c88ff",
   cardBgColor: "white",
