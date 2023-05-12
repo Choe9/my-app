@@ -7,7 +7,7 @@ import Price from "./routes/Price";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <Root />,
     children: [
       {

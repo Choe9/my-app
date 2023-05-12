@@ -18,6 +18,10 @@ interface PriceProps {
   coinId?: string;
 }
 
+interface ToggleDarkType {
+  isDark: boolean;
+}
+
 function Price() {
   // const { coinId } = useOutletContext() as ChartProps;
   const { isLoading, data } = useQuery<IHistorical[]>(
@@ -29,6 +33,9 @@ function Price() {
       refetchInterval: 10000,
     }
   );
+
+  const { isDark } = useOutletContext<ToggleDarkType>();
+
   return (
     <div>
       {isLoading ? (
@@ -48,7 +55,7 @@ function Price() {
           ]}
           options={{
             theme: {
-              mode: "dark",
+              mode: isDark ? "dark" : "light",
             },
             chart: {
               // height: 300,
@@ -58,7 +65,7 @@ function Price() {
               },
               background: "rgba(0, 0, 0, 0.5)",
               stacked: true,
-              stackType: "normal",
+              // stackType: "normal",
             },
             // grid: { show: false },
             // stroke: {

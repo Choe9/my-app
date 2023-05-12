@@ -5,6 +5,7 @@ import {
   Outlet,
   useLocation,
   useMatch,
+  useOutletContext,
   useParams,
 } from "react-router-dom";
 import styled from "styled-components";
@@ -173,6 +174,10 @@ interface PriceData {
   };
 }
 
+interface ToggleDarkType {
+  isDark: boolean;
+}
+
 function Coin() {
   const { coinId } = useParams() as IParams;
   const { state } = useLocation() as LocationState;
@@ -191,6 +196,9 @@ function Coin() {
     }
   );
   const loading = infoLoading || tickersLoading;
+
+  const { isDark } = useOutletContext<ToggleDarkType>();
+
   return (
     <Container>
       <Helmet>
@@ -253,7 +261,7 @@ function Coin() {
               <Link to="price">Price</Link>
             </Tab>
           </Tabs>
-          <Outlet context={{ coinId }} />
+          <Outlet context={{ coinId, isDark }} />
         </>
       )}
     </Container>
