@@ -174,9 +174,7 @@ interface PriceData {
   };
 }
 
-interface ToggleDarkType {
-  isDark: boolean;
-}
+interface ToggleDarkType {}
 
 function Coin() {
   const { coinId } = useParams() as IParams;
@@ -197,7 +195,7 @@ function Coin() {
   );
   const loading = infoLoading || tickersLoading;
 
-  const { isDark } = useOutletContext<ToggleDarkType>();
+  //const { isDark } = useOutletContext<ToggleDarkType>();
 
   return (
     <Container>
@@ -261,7 +259,7 @@ function Coin() {
               <Link to="price">Price</Link>
             </Tab>
           </Tabs>
-          <Outlet context={{ coinId, isDark }} />
+          <Outlet context={{ coinId }} />
         </>
       )}
     </Container>
